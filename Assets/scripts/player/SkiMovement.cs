@@ -27,9 +27,7 @@ public class SkiMovement : MonoBehaviour {
 
 		if (UseMacHack)
 		{
-			Debug.Log("triggerValue BEFORE: " + triggerValue);
 			triggerValue = (triggerValue/2) + 0.5f;
-			Debug.Log("triggerValue BEFORE: " + triggerValue);
 		}
 		return triggerValue;
 	}
