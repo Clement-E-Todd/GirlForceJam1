@@ -8,5 +8,6 @@ Library/metadata/
 .vs/
 obj/
 
+*.sln
 *.csproj
 *.userprefs
