@@ -5,3 +5,5 @@ Temp/
 Library/
 Library/metadata/
 
+.vs/
+obj/
