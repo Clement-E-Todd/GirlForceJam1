@@ -27,6 +27,10 @@ public class GameOverUI : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			Time.timeScale = 1.0f;
+            GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
+
+            foreach (GameObject rock in rocks)
+                Destroy(rock);
 
 			foreach (var obj in objectsToToggle)
 			{
