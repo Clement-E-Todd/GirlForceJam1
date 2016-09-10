@@ -30,9 +30,9 @@ public class SpawnController : MonoBehaviour {
     private void spawnObstacle()
     {
         Debug.Log("Hi");
-
-        int getNewObstacle = Random.Range(0, 5);//maxlist length
-
         spawnTimer = 0;
+        int getNewObstacle = Random.Range(0, ObCollection.Count - 1);
+
+        GameObject newObstacle = Instantiate(ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
     }
 }
