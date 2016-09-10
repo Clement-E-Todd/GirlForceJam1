@@ -26,7 +26,7 @@ public class ObstaclePrefab : MonoBehaviour
         {
    
             collectedPoints = true;
-            Debug.Log("Passed");
+            
             PointsManager playerPoints = FindObjectOfType<PointsManager>();
             playerPoints.SetPoints(1);
 
