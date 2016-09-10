@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\PointsManager.cs" />
+    <Compile Include="Assets\scripts\ScoreManager.cs" />
     <Compile Include="Assets\scripts\SpawnController.cs" />
     <Compile Include="Assets\scripts\UI\GameOverUI.cs" />
     <Compile Include="Assets\scripts\level\Hazard.cs" />
