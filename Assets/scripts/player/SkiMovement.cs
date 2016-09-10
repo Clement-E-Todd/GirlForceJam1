@@ -8,6 +8,8 @@ public class SkiMovement : MonoBehaviour {
 	public Vector3 OuterPosition;
 	public Vector3 InnerPosisition;
 
+	private static bool UseMacHack;
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -17,6 +19,18 @@ public class SkiMovement : MonoBehaviour {
 
 	public float GetTriggerValue()
 	{
-		return Input.GetAxis(TriggerName);
+		float triggerValue = Input.GetAxis(TriggerName);
+		if (!UseMacHack && triggerValue < 0f)
+		{
+			UseMacHack = true;
+		}
+
+		if (UseMacHack)
+		{
+			Debug.Log("triggerValue BEFORE: " + triggerValue);
+			triggerValue = (triggerValue/2) + 0.5f;
+			Debug.Log("triggerValue BEFORE: " + triggerValue);
+		}
+		return triggerValue;
 	}
 }
