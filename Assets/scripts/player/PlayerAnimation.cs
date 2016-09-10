@@ -9,6 +9,7 @@ public class PlayerAnimation : MonoBehaviour
 	public GameObject leg2;
 	public GameObject waist;
 	public GameObject torso;
+	public GameObject head;
 
 	public Vector3 leg1outerPosition;
 	public Vector3 leg2outerPosition;
@@ -27,6 +28,10 @@ public class PlayerAnimation : MonoBehaviour
 	public Vector3 torsoUpperPosition;
 	public Vector3 torsoLowerPosition;
 	public float torsoRotationAmount;
+
+	public Vector3 headUpperPosition;
+	public Vector3 headLowerPosition;
+	public float headRotationAmount;
 
 	void Update()
 	{
@@ -50,5 +55,9 @@ public class PlayerAnimation : MonoBehaviour
 		torso.transform.localPosition = Vector3.LerpUnclamped(torsoUpperPosition, torsoLowerPosition, averageTriggerValue);
 		torso.transform.localEulerAngles = new Vector3(0, 0,
 			Mathf.LerpUnclamped(torsoRotationAmount , -torsoRotationAmount, rotationValue));
+
+		head.transform.localPosition = Vector3.LerpUnclamped(headUpperPosition, headLowerPosition, averageTriggerValue);
+		head.transform.localEulerAngles = new Vector3(0, 0,
+			Mathf.LerpUnclamped(headRotationAmount , -headRotationAmount, rotationValue));
 	}
 }

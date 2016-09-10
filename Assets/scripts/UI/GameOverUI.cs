@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class GameOverUI : MonoBehaviour 
 {
 	public List<GameObject> objectsToToggle;
-	private bool isGameOver;
+    PointsManager playerPoints; 
+    private bool isGameOver;
 
 	public bool IsGameOver
 	{
@@ -17,8 +18,8 @@ public class GameOverUI : MonoBehaviour
 
 	void Start () 
 	{
-	
-	}
+        playerPoints = FindObjectOfType<PointsManager>();
+    }
 
 	public void GameOver()
 	{
@@ -28,6 +29,9 @@ public class GameOverUI : MonoBehaviour
 		}
         isGameOver = true;
 		Time.timeScale = 0.0f;
+        
+        if(playerPoints.GetPoints() > PlayerPrefs.GetInt("High Score"))
+            PlayerPrefs.SetInt("High Score", playerPoints.GetPoints());
 
 		FindObjectOfType<PlayerAnimation>().enabled = false;
 		foreach (var ski in FindObjectsOfType<SkiMovement>())
@@ -44,7 +48,6 @@ public class GameOverUI : MonoBehaviour
 			foreach (GameObject rock in rocks)
 				Destroy(rock);
 
-			PointsManager playerPoints = FindObjectOfType<PointsManager>();
 			playerPoints.ResetPoints();
 
             isGameOver = false;
