@@ -10,7 +10,11 @@ public class ScoreManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         scoreText = GetComponent<Text>();
-        PlayerPrefs.SetInt("High Score", 0);
+
+        if (!PlayerPrefs.HasKey("High Score"))
+        {
+            PlayerPrefs.SetInt("High Score", 0);
+        }
     }
 	
 	// Update is called once per frame
