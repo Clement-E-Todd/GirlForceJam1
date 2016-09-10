@@ -38,9 +38,9 @@ public class SpawnController : MonoBehaviour {
 
             if (totalGameTime > timeUntilMedium && totalGameTime < timeUntilHard)
                 spawnObstacleMedium();
-            if (totalGameTime > timeUntilHard)
+           else if (totalGameTime > timeUntilHard)
                 spawnObstacleHard();
-            else
+           else
                 spawnObstacleEasy();
         }
 	}
