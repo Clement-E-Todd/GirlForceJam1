@@ -12,7 +12,7 @@ public class SkiMovement : MonoBehaviour {
 	void Update ()
 	{
 		float triggerValue = GetTriggerValue();
-		transform.position = Vector3.Lerp(OuterPosition, InnerPosisition, triggerValue);
+		transform.position = Vector3.LerpUnclamped(OuterPosition, InnerPosisition, triggerValue);
 	}
 
 	public float GetTriggerValue()
