@@ -17,4 +17,10 @@ public class PointsManager : MonoBehaviour {
         playerPoints += points;
         pointText.text = playerPoints.ToString();
     }
+
+    public void ResetPoints()
+    {
+        playerPoints = 0;
+        pointText.text = playerPoints.ToString();
+    }
 }

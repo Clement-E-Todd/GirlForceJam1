@@ -18,16 +18,20 @@ public class GameOverUI : MonoBehaviour
 		{
 			obj.SetActive(true);
 		}
-
+        isGameOver = true;
 		Time.timeScale = 0.0f;
 	}
 
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && isGameOver)
 		{
+            isGameOver = false;
 			Time.timeScale = 1.0f;
             GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
+
+            PointsManager playerPoints = FindObjectOfType<PointsManager>();
+            playerPoints.ResetPoints();
 
             foreach (GameObject rock in rocks)
                 Destroy(rock);
