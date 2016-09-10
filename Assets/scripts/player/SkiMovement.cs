@@ -11,7 +11,12 @@ public class SkiMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		float triggerValue = Input.GetAxis(TriggerName);
+		float triggerValue = GetTriggerValue();
 		transform.position = Vector3.Lerp(OuterPosition, InnerPosisition, triggerValue);
+	}
+
+	public float GetTriggerValue()
+	{
+		return Input.GetAxis(TriggerName);
 	}
 }
