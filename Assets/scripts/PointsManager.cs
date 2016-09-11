@@ -10,12 +10,18 @@ public class PointsManager : MonoBehaviour {
     private void Start()
     {
         pointText = GetComponent<Text>();
+
     }
 
 	public void SetPoints(int points)
     {
         playerPoints += points;
         pointText.text = playerPoints.ToString();
+    }
+
+    public int GetPoints()
+    {
+        return playerPoints;
     }
 
     public void ResetPoints()
