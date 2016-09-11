@@ -11,7 +11,7 @@ public class TitleScreen : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) || Input.touches.Length > 0)
 		{
 			SceneManager.LoadScene(1); 
 		}
