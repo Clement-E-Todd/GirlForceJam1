@@ -18,6 +18,21 @@ public class SpawnController : MonoBehaviour {
 	private float currentPerSecondCheck;
 	private DifficultyLevel currentDifficultyLevel;
 
+	public ObstaclePrefab[] GetUpcomingPrefabs()
+	{
+		//we ask the scene for all obstacle prefabs currently in there. However, we only want to return obstacles that haven't passed the player yet!
+		List<ObstaclePrefab> upcomingObstacles = new List<ObstaclePrefab>();
+		foreach (var obstacle in FindObjectsOfType<ObstaclePrefab>())
+		{
+			if (obstacle.IsUpcoming())
+			{
+				upcomingObstacles.Add(obstacle);
+			}
+		}
+
+		return upcomingObstacles.ToArray();
+	}
+
 	private void StoreNewPerSecondCheck()
 	{
 		currentPerSecondCheck = Random.Range(currentDifficultyLevel.PerSecondMin, currentDifficultyLevel.PerSecondMax);

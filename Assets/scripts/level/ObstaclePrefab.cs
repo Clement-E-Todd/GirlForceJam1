@@ -29,8 +29,16 @@ public class ObstaclePrefab : MonoBehaviour
 
     private bool collectedPoints;
 
+	public bool IsUpcoming()
+	{
+		//if we've not collected points for this, it means the obstacle is upcoming;
+		return !collectedPoints;
+	}
+
 	public void Update()
 	{
+		
+
 		transform.position += new Vector3(0, speed * Time.deltaTime, 0);
         yLocationToAddPoint = GameObject.FindGameObjectWithTag("Player").transform.position.y;
 
