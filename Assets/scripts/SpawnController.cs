@@ -5,14 +5,8 @@ using System.Collections.Generic;
 public class SpawnController : MonoBehaviour {
 
 	//variables
+	public List<DifficultyLevel> DifficultyLevels;
 
-    //how many obstacles are created per second
-	public float PerSecond;
-    public List<GameObject> ObCollection;
-    //medium
-    public List<GameObject> ObCollection2;
-    //hard
-    public List<GameObject> ObCollection3;
     //timer that calculates how much time has passed since last created
     private float spawnTimer;
     private float totalGameTime;
@@ -21,9 +15,27 @@ public class SpawnController : MonoBehaviour {
     public float timeUntilMedium;
     public float timeUntilHard;
 
+	private float currentPerSecondCheck;
+	private DifficultyLevel currentDifficultyLevel;
+
+	private void StoreNewPerSecondCheck()
+	{
+		currentPerSecondCheck = Random.Range(currentDifficultyLevel.PerSecondMin, currentDifficultyLevel.PerSecondMax);
+	}
+
+	private DifficultyLevel GetCurrentDifficulty()
+	{
+		if (totalGameTime > timeUntilMedium && totalGameTime < timeUntilHard)
+			return DifficultyLevels[1];
+		else if (totalGameTime > timeUntilHard)
+			return DifficultyLevels[2];
+		else
+			return DifficultyLevels[0];
+	}
+
 	// Use this for initialization
 	void Start () {
-		
+		StoreNewPerSecondCheck();
 	}
 	
 	// Update is called once per frame
@@ -32,40 +44,30 @@ public class SpawnController : MonoBehaviour {
         spawnTimer += Time.deltaTime;
         totalGameTime += Time.deltaTime;
 
-        if(spawnTimer > PerSecond) {
+		currentDifficultyLevel = GetCurrentDifficulty();
 
+		if(spawnTimer > currentPerSecondCheck) 
+		{
             spawnTimer = 0;
-
-            if (totalGameTime > timeUntilMedium && totalGameTime < timeUntilHard)
-                spawnObstacleMedium();
-           else if (totalGameTime > timeUntilHard)
-                spawnObstacleHard();
-           else
-                spawnObstacleEasy();
+			spawnObstacle(currentDifficultyLevel);
+			StoreNewPerSecondCheck();
         }
 	}
 
-    private void spawnObstacleEasy()
+    private void spawnObstacle(DifficultyLevel difficulty)
     {
-        int getNewObstacle = Random.Range(0, ObCollection.Count);
+		int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
 
-        GameObject newObstacle = Instantiate(ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+        GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+   	}
+}
 
-   }
+[System.Serializable]
+public class DifficultyLevel
+{
+	public string name;
+	public float PerSecondMin;
+	public float PerSecondMax;
 
-   private void spawnObstacleMedium()
-    {
-        int getNewObstacle = Random.Range(0, ObCollection2.Count);
-
-        GameObject newObstacle = Instantiate(ObCollection2[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
-
-    }
-
-    private void spawnObstacleHard()
-    {
-        int getNewObstacle = Random.Range(0, ObCollection3.Count);
-
-        GameObject newObstacle = Instantiate(ObCollection3[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
-
-    }
+	public List<GameObject> ObCollection;
 }
