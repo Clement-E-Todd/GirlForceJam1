@@ -75,7 +75,6 @@ public class SpawnController : MonoBehaviour {
     private void spawnObstacle(DifficultyLevel difficulty)
     {
 		int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
-
         GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
    	}
 }
