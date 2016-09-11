@@ -57,6 +57,8 @@ public class SpawnController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		GetUpcomingPrefabs();
+
         spawnTimer += Time.deltaTime;
         totalGameTime += Time.deltaTime;
 
