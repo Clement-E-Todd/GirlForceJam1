@@ -23,18 +23,19 @@ public class SpawnController : MonoBehaviour {
 		currentPerSecondCheck = Random.Range(currentDifficultyLevel.PerSecondMin, currentDifficultyLevel.PerSecondMax);
 	}
 
-	private DifficultyLevel GetCurrentDifficulty()
+	private void SetCurrentDifficulty()
 	{
 		if (totalGameTime > timeUntilMedium && totalGameTime < timeUntilHard)
-			return DifficultyLevels[1];
+			currentDifficultyLevel = DifficultyLevels[1];
 		else if (totalGameTime > timeUntilHard)
-			return DifficultyLevels[2];
+			currentDifficultyLevel = DifficultyLevels[2];
 		else
-			return DifficultyLevels[0];
+			currentDifficultyLevel = DifficultyLevels[0];
 	}
 
 	// Use this for initialization
 	void Start () {
+		SetCurrentDifficulty();
 		StoreNewPerSecondCheck();
 	}
 	
@@ -44,7 +45,7 @@ public class SpawnController : MonoBehaviour {
         spawnTimer += Time.deltaTime;
         totalGameTime += Time.deltaTime;
 
-		currentDifficultyLevel = GetCurrentDifficulty();
+		SetCurrentDifficulty();
 
 		if(spawnTimer > currentPerSecondCheck) 
 		{
