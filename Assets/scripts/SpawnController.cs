@@ -14,6 +14,9 @@ public class SpawnController : MonoBehaviour {
     //game difficulty times
     public float timeUntilMedium;
     public float timeUntilHard;
+	public float perSecondMin;
+	public float perSecondMax;
+	public float highestTime = 200f;
 
 	private float currentPerSecondCheck;
 	private DifficultyLevel currentDifficultyLevel;
@@ -35,7 +38,9 @@ public class SpawnController : MonoBehaviour {
 
 	private void StoreNewPerSecondCheck()
 	{
-		currentPerSecondCheck = Random.Range(currentDifficultyLevel.PerSecondMin, currentDifficultyLevel.PerSecondMax);
+		float perSecondBase = Mathf.Lerp(perSecondMin, perSecondMax, totalGameTime / highestTime);
+		currentPerSecondCheck = perSecondBase;
+		//currentPerSecondCheck = Random.Range(currentDifficultyLevel.PerSecondVarianceMin, currentDifficultyLevel.PerSecondVarianceMax);
 	}
 
 	private void SetCurrentDifficulty()
@@ -83,8 +88,8 @@ public class SpawnController : MonoBehaviour {
 public class DifficultyLevel
 {
 	public string name;
-	public float PerSecondMin;
-	public float PerSecondMax;
+	public float PerSecondVarianceMin;
+	public float PerSecondVarianceMax;
 
 	public List<GameObject> ObCollection;
 }
