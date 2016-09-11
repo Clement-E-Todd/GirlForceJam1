@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 using System.Collections;
 
 public class SkiMovement : MonoBehaviour {
@@ -10,25 +11,137 @@ public class SkiMovement : MonoBehaviour {
 
 	private static bool UseMacHack;
 
+	private int Leg1TouchId = -1;
+	private int Leg2TouchId = -1;
+
+	float CurrentTriggerValue = 0f;
+	float PreviousTriggerValue = 0f;
+	const float MaxDistancePerSec = 5f;
+
 	// Update is called once per frame
 	void Update ()
 	{
-		float triggerValue = GetTriggerValue();
-		transform.position = Vector3.LerpUnclamped(OuterPosition, InnerPosisition, triggerValue);
+		PreviousTriggerValue = CurrentTriggerValue;
+		float TargetTriggerValue = GetTargetTriggerValue();
+		CurrentTriggerValue = Mathf.MoveTowards(CurrentTriggerValue, TargetTriggerValue, MaxDistancePerSec * Time.deltaTime);
+		transform.position = Vector3.LerpUnclamped(OuterPosition, InnerPosisition, CurrentTriggerValue);
 	}
 
 	public float GetTriggerValue()
 	{
-		float triggerValue = Input.GetAxis(TriggerName);
-		if (!UseMacHack && triggerValue < 0f)
+		return CurrentTriggerValue;
+	}
+
+	float GetTargetTriggerValue()
+	{
+		float triggerValue = 0f;
+
+		//Game pad input.
+		if (Input.GetJoystickNames().Length > 0)
 		{
-			UseMacHack = true;
+			triggerValue = Input.GetAxis(TriggerName);
+			if (!UseMacHack && triggerValue < 0f)
+			{
+				UseMacHack = true;
+			}
+
+			if (UseMacHack)
+			{
+				triggerValue = (triggerValue / 2) + 0.5f;
+			}
 		}
 
-		if (UseMacHack)
+		else if (Input.touchSupported)
 		{
-			triggerValue = (triggerValue/2) + 0.5f;
+			//Tracking the position of touches for each leg.
+			bool leg1TouchInProg = false;
+			bool leg2TouchInProg = false;
+
+			foreach (Touch touch in Input.touches)
+			{
+				if (touch.position.x < Screen.width / 2)
+				{
+					if (Leg1TouchId == -1 &&
+						touch.fingerId != Leg2TouchId)
+					{
+						Leg1TouchId = touch.fingerId;
+					}
+
+					//Move the legs to match touch positions.
+					if (touch.fingerId == Leg1TouchId &&
+						TriggerName == "Leg 1")
+					{
+						triggerValue = touch.position.x / (Screen.width / 2);
+					}
+
+					//If this touch started onthe other side, handle the other leg
+					else if (touch.fingerId == Leg2TouchId &&
+						TriggerName == "Leg 2")
+					{
+						triggerValue = 1f;
+					}
+				}
+
+				else
+				{
+					if (Leg2TouchId == -1 &&
+						touch.fingerId != Leg1TouchId)
+					{
+						Leg2TouchId = touch.fingerId;
+					}
+
+					//Move the legs to match touch positions.
+					if (touch.fingerId == Leg2TouchId &&
+						TriggerName == "Leg 2")
+					{
+						triggerValue = 1f - ((touch.position.x - Screen.width/2) / (Screen.width / 2));
+					}
+
+					//If this touch started onthe other side, handle the other leg
+					else if (touch.fingerId == Leg1TouchId &&
+						TriggerName == "Leg 1")
+					{
+						triggerValue = 1f;
+					}
+				}
+
+				// Verify that we should keep tracking the touches for each side
+				if (touch.fingerId == Leg1TouchId)
+				{
+					leg1TouchInProg = true;
+				}
+				if (touch.fingerId == Leg2TouchId)
+				{
+					leg2TouchInProg = true;
+				}
+			}
+
+			//If a touch was released, stop tracking it.
+			if (!leg1TouchInProg)
+			{
+				Leg1TouchId = -1;
+			}
+
+			if (!leg2TouchInProg)
+			{
+				Leg2TouchId = -1;
+			}
 		}
+
+		else
+		{
+			Debug.LogError("No valid input device was found.");
+		}
+
 		return triggerValue;
 	}
+
+	/*void OnGUI()
+	{
+		if (Input.touchSupported)
+		{
+			string message = string.Format("Leg1ID: {0}\nLeg2ID: {1}", Leg1TouchId, Leg2TouchId);
+			GUI.Label(new Rect(Vector2.zero, new Vector2(Screen.width, Screen.height)), message);
+		}
+	}*/
 }

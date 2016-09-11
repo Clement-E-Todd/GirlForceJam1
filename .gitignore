@@ -5,6 +5,8 @@ obj/
 *.svd
 *.userprefs
 /*.csproj
+*.csproj
+*.CSharp.csproj
 *.pidb
 *.suo
 /*.sln
