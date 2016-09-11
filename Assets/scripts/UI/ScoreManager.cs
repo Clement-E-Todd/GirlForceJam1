@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour {
 
@@ -20,6 +21,12 @@ public class ScoreManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         highScore = PlayerPrefs.GetInt("High Score");
-        scoreText.text = highScore.ToString();
+
+        Scene currScene = SceneManager.GetActiveScene();
+
+        if(currScene.buildIndex == 0)
+            scoreText.text = ("high score: " + highScore.ToString());
+        else
+            scoreText.text = highScore.ToString();
     }
 }

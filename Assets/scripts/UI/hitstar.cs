@@ -10,13 +10,18 @@ public class hitstar : MonoBehaviour
 	private float startedTime;
 	private void Awake()
 	{
-		transform.localScale = Vector3.zero;
-		startedTime = Time.time;
+		
 	}
 
-	private void Update()
+	private void OnEnable()
 	{
-		runTime = Time.time - startedTime;;
+		transform.localScale = Vector3.zero;
+		startedTime = Time.realtimeSinceStartup;
+	}
+
+	void Update() 
+	{
+		runTime = Time.realtimeSinceStartup - startedTime;
 		transform.localScale = Vector3.Lerp(Vector3.zero, new Vector3(totalScale, totalScale,totalScale), runTime/totalScaleTime); 
 	}
 

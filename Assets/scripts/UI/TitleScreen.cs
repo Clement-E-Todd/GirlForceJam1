@@ -13,7 +13,12 @@ public class TitleScreen : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Space) || Input.touches.Length > 0)
 		{
-			SceneManager.LoadScene(1); 
+            loadScene();
 		}
 	}
+
+    public void loadScene()
+    {
+        SceneManager.LoadScene(1);
+    }
 }
