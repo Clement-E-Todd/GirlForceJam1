@@ -3,12 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+public enum ObstaclePrefabDifficulty
+{
+	Easy,
+	Medium,
+	Hard
+}
+
 public class ObstaclePrefab : MonoBehaviour 
 {
+	[SerializeField]
+	private ObstaclePrefabDifficulty difficulty;
+
 	public float speed = 30;
 	public float yLocationToDelete;
     private float yLocationToAddPoint;
 
+	public ObstaclePrefabDifficulty Difficulty
+	{
+		get 
+		{
+			return difficulty;
+		}
+	}
 
     private bool collectedPoints;
 
