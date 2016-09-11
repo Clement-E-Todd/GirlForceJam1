@@ -56,7 +56,7 @@ public class ObstaclePrefab : MonoBehaviour
 			Destroy(gameObject);
 		}
 
-        if (transform.position.y > yLocationToAddPoint && !collectedPoints)
+        if (transform.position.y > yLocationToAddPoint && !collectedPoints && !this.tag.Equals("Branch"))
         {
    
             collectedPoints = true;
