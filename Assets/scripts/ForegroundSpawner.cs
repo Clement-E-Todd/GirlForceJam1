@@ -33,7 +33,6 @@ public class ForegroundSpawner : MonoBehaviour {
 
         if (spawnTimer > spawnBranchFreq)
         {
-            Debug.Log("hellooo");
             spawnTimer = 0;
             currBranch = Random.Range(0, treeBranches.Length);
             GameObject currTreeBranch = Instantiate(treeBranches[currBranch], transform.position, Quaternion.identity) as GameObject;
