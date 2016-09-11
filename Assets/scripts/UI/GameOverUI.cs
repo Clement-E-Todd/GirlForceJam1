@@ -42,7 +42,18 @@ public class GameOverUI : MonoBehaviour
 
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.Space) && isGameOver)
+		bool isTapping = false;
+
+		foreach (Touch touch in Input.touches)
+		{
+			if (touch.phase == TouchPhase.Began)
+			{
+				isTapping = true;
+				break;
+			}
+		} 
+
+		if ((Input.GetKeyDown(KeyCode.Space) || isTapping) && isGameOver)
 		{
 			GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
 			foreach (GameObject rock in rocks)

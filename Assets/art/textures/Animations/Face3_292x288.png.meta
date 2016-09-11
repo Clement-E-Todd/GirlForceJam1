@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 5d7531c2844d64605ae3ec7ebe773e13
-timeCreated: 1473607241
+guid: 2d482329ea1424542a69384a013c6b4c
+timeCreated: 1473607273
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Face2_292x288_0
-    21300002: Face2_292x288_1
-    21300004: Face2_292x288_2
-    21300006: Face2_292x288_3
-    21300008: Face2_292x288_4
-    21300010: Face2_292x288_5
+    21300000: Face3_292x288_0
+    21300002: Face3_292x288_1
+    21300004: Face3_292x288_2
+    21300006: Face3_292x288_3
+    21300008: Face3_292x288_4
+    21300010: Face3_292x288_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,7 +59,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Face2_292x288_0
+      name: Face3_292x288_0
       rect:
         serializedVersion: 2
         x: 0
@@ -72,7 +72,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Face2_292x288_1
+      name: Face3_292x288_1
       rect:
         serializedVersion: 2
         x: 292
@@ -85,7 +85,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Face2_292x288_2
+      name: Face3_292x288_2
       rect:
         serializedVersion: 2
         x: 584
@@ -98,7 +98,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Face2_292x288_3
+      name: Face3_292x288_3
       rect:
         serializedVersion: 2
         x: 0
@@ -111,7 +111,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Face2_292x288_4
+      name: Face3_292x288_4
       rect:
         serializedVersion: 2
         x: 292
@@ -124,7 +124,7 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: Face2_292x288_5
+      name: Face3_292x288_5
       rect:
         serializedVersion: 2
         x: 584
