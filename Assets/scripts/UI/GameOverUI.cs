@@ -55,26 +55,33 @@ public class GameOverUI : MonoBehaviour
 
 		if ((Input.GetKeyDown(KeyCode.Space) || isTapping) && isGameOver)
 		{
-			GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
-			foreach (GameObject rock in rocks)
-				Destroy(rock);
-
-			playerPoints.ResetPoints();
-
-            isGameOver = false;
-			Time.timeScale = 1.0f;
-
-
-			FindObjectOfType<PlayerAnimation>().enabled = true;
-			foreach (var ski in FindObjectsOfType<SkiMovement>())
-			{
-				ski.enabled = true;
-			}
-
-			foreach (var obj in objectsToToggle)
-			{
-				obj.SetActive(false);
-			}
+			Reset();
 		}
+	}
+
+	private void Reset()
+	{
+		GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
+		foreach (GameObject rock in rocks)
+			Destroy(rock);
+
+		playerPoints.ResetPoints();
+
+		isGameOver = false;
+		Time.timeScale = 1.0f;
+
+
+		FindObjectOfType<PlayerAnimation>().enabled = true;
+		foreach (var ski in FindObjectsOfType<SkiMovement>())
+		{
+			ski.enabled = true;
+		}
+
+		foreach (var obj in objectsToToggle)
+		{
+			obj.SetActive(false);
+		}
+
+		FindObjectOfType<SpawnController>().Reset();
 	}
 }
