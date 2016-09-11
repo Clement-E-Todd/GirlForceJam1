@@ -7,6 +7,11 @@ public class SpawnController : MonoBehaviour {
 	//variables
 	public List<DifficultyLevel> DifficultyLevels;
 
+	public List<ObstaclePrefab> DebugSpawnPrefabs;
+
+	public bool debugMode;
+	private int debugIndex;
+
     //timer that calculates how much time has passed since last created
     private float spawnTimer;
     private float totalGameTime;
@@ -58,6 +63,11 @@ public class SpawnController : MonoBehaviour {
 		SetCurrentDifficulty();
 		StoreNewPerSecondCheck();
 	}
+
+	public void Reset()
+	{
+		totalGameTime = 0;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -79,8 +89,22 @@ public class SpawnController : MonoBehaviour {
 
     private void spawnObstacle(DifficultyLevel difficulty)
     {
-		int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
-        GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+		if (debugMode)
+		{
+			GameObject newObstacle = Instantiate(DebugSpawnPrefabs[debugIndex].gameObject, transform.position, Quaternion.identity) as GameObject;
+
+			debugIndex++;
+
+			if (debugIndex > DebugSpawnPrefabs.Count-1)
+			{
+				debugIndex = 0;
+			}
+		}
+		else
+		{
+			int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
+	        GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+		}
    	}
 }
 
