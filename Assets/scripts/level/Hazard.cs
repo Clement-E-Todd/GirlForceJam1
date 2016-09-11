@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Hazard : MonoBehaviour 
 {
+	public bool ignoreFlip;
 	
 	private void OnTriggerEnter2D(Collider2D collider)
 	{

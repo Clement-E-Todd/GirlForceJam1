@@ -15,9 +15,11 @@ public class ObstaclePrefab : MonoBehaviour
 	[SerializeField]
 	private ObstaclePrefabDifficulty difficulty;
 
-	public float speed = 30;
+	public float baseSpeed = 7f;
 	public float yLocationToDelete;
     private float yLocationToAddPoint;
+
+	private const float speedMultiplerBasedOnTime = 0.1f;
 
 	public ObstaclePrefabDifficulty Difficulty
 	{
@@ -28,6 +30,12 @@ public class ObstaclePrefab : MonoBehaviour
 	}
 
     private bool collectedPoints;
+	private SpawnController spawnController;
+
+	private void Start()
+	{
+		spawnController = FindObjectOfType<SpawnController>();
+	}
 
 	public bool IsUpcoming()
 	{
@@ -38,6 +46,7 @@ public class ObstaclePrefab : MonoBehaviour
 	public void Update()
 	{
 		
+		float speed = baseSpeed + (speedMultiplerBasedOnTime * spawnController.TotalGameTime);
 
 		transform.position += new Vector3(0, speed * Time.deltaTime, 0);
         yLocationToAddPoint = GameObject.FindGameObjectWithTag("Player").transform.position.y;

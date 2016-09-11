@@ -7,6 +7,11 @@ public class SpawnController : MonoBehaviour {
 	//variables
 	public List<DifficultyLevel> DifficultyLevels;
 
+	public List<ObstaclePrefab> DebugSpawnPrefabs;
+
+	public bool debugMode;
+	private int debugIndex;
+
     //timer that calculates how much time has passed since last created
     private float spawnTimer;
     private float totalGameTime;
@@ -20,6 +25,15 @@ public class SpawnController : MonoBehaviour {
 
 	private float currentPerSecondCheck;
 	private DifficultyLevel currentDifficultyLevel;
+
+	public float TotalGameTime
+	{
+		get 
+		{
+			return totalGameTime;
+		}
+
+	}
 
 	public ObstaclePrefab[] GetUpcomingPrefabs()
 	{
@@ -58,6 +72,11 @@ public class SpawnController : MonoBehaviour {
 		SetCurrentDifficulty();
 		StoreNewPerSecondCheck();
 	}
+
+	public void Reset()
+	{
+		totalGameTime = 0;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -79,9 +98,44 @@ public class SpawnController : MonoBehaviour {
 
     private void spawnObstacle(DifficultyLevel difficulty)
     {
-		int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
-        GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+		if (debugMode)
+		{
+			GameObject newObstacle = Instantiate(DebugSpawnPrefabs[debugIndex].gameObject, transform.position, Quaternion.identity) as GameObject;
+
+			debugIndex++;
+
+			if (debugIndex > DebugSpawnPrefabs.Count-1)
+			{
+				debugIndex = 0;
+			}
+
+			Flip(newObstacle);
+		}
+		else
+		{
+			int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
+	        GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+
+			Flip(newObstacle);
+		}
    	}
+
+	private void Flip(GameObject newObstacle)
+	{
+		bool flip = Random.value > 0.5f;
+
+		if (flip)
+		{
+			foreach (var hazard in newObstacle.GetComponentsInChildren<Hazard>())
+			{
+				if (hazard.ignoreFlip)
+				{
+					continue;
+				}
+				hazard.transform.position = new Vector3(-hazard.transform.position.x,hazard.transform.position.y, hazard.transform.position.z); 	
+			}
+		}
+	}
 }
 
 [System.Serializable]
