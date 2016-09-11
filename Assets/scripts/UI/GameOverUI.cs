@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour 
 {
 	public List<GameObject> objectsToToggle;
     PointsManager playerPoints; 
     private bool isGameOver;
+	public Text yourScore;
+	public Text highScore;
 
 	public bool IsGameOver
 	{
@@ -40,6 +43,10 @@ public class GameOverUI : MonoBehaviour
 		}
 
 		FindObjectOfType<ScoreScreen>().ToggleScoreScreen(true);
+
+		yourScore.text = FindObjectOfType<PointsManager>().GetPoints().ToString();
+		highScore.text = PlayerPrefs.GetInt("High Score").ToString();
+
 	}
 
 	void Update () 
