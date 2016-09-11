@@ -108,13 +108,34 @@ public class SpawnController : MonoBehaviour {
 			{
 				debugIndex = 0;
 			}
+
+			Flip(newObstacle);
 		}
 		else
 		{
 			int getNewObstacle = Random.Range(0, difficulty.ObCollection.Count);
 	        GameObject newObstacle = Instantiate(difficulty.ObCollection[getNewObstacle], transform.position, Quaternion.identity) as GameObject;
+
+			Flip(newObstacle);
 		}
    	}
+
+	private void Flip(GameObject newObstacle)
+	{
+		bool flip = Random.value > 0.5f;
+
+		if (flip)
+		{
+			foreach (var hazard in newObstacle.GetComponentsInChildren<Hazard>())
+			{
+				if (hazard.ignoreFlip)
+				{
+					continue;
+				}
+				hazard.transform.position = new Vector3(-hazard.transform.position.x,hazard.transform.position.y, hazard.transform.position.z); 	
+			}
+		}
+	}
 }
 
 [System.Serializable]
