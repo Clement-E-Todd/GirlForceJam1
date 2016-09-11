@@ -9,6 +9,9 @@ public class SkiMovement : MonoBehaviour {
 	public Vector3 OuterPosition;
 	public Vector3 InnerPosisition;
 
+	public float OuterTouchScalar;
+	public float InnerTouchScalar;
+
 	private static bool UseMacHack;
 
 	private int Leg1TouchId = -1;
@@ -51,6 +54,7 @@ public class SkiMovement : MonoBehaviour {
 			}
 		}
 
+		//Touch-screen input.
 		else if (Input.touchSupported)
 		{
 			//Tracking the position of touches for each leg.
@@ -66,20 +70,6 @@ public class SkiMovement : MonoBehaviour {
 					{
 						Leg1TouchId = touch.fingerId;
 					}
-
-					//Move the legs to match touch positions.
-					if (touch.fingerId == Leg1TouchId &&
-						TriggerName == "Leg 1")
-					{
-						triggerValue = touch.position.x / (Screen.width / 2);
-					}
-
-					//If this touch started onthe other side, handle the other leg
-					else if (touch.fingerId == Leg2TouchId &&
-						TriggerName == "Leg 2")
-					{
-						triggerValue = 1f;
-					}
 				}
 
 				else
@@ -89,20 +79,16 @@ public class SkiMovement : MonoBehaviour {
 					{
 						Leg2TouchId = touch.fingerId;
 					}
+				}
 
-					//Move the legs to match touch positions.
-					if (touch.fingerId == Leg2TouchId &&
-						TriggerName == "Leg 2")
-					{
-						triggerValue = 1f - ((touch.position.x - Screen.width/2) / (Screen.width / 2));
-					}
-
-					//If this touch started onthe other side, handle the other leg
-					else if (touch.fingerId == Leg1TouchId &&
-						TriggerName == "Leg 1")
-					{
-						triggerValue = 1f;
-					}
+				//Move the legs to match touch positions.
+				if ((touch.fingerId == Leg1TouchId && TriggerName == "Leg 1") ||
+					(touch.fingerId == Leg2TouchId && TriggerName == "Leg 2"))
+				{
+					float outerTouchPosX = Screen.width * OuterTouchScalar;
+					float innerTouchPosX = Screen.width * InnerTouchScalar;
+					triggerValue = (touch.position.x - outerTouchPosX) / (innerTouchPosX - outerTouchPosX);
+					triggerValue = Mathf.Clamp01(triggerValue);
 				}
 
 				// Verify that we should keep tracking the touches for each side
