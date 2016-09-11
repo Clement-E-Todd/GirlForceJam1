@@ -19,7 +19,7 @@ public class SkiMovement : MonoBehaviour {
 
 	float CurrentTriggerValue = 0f;
 	float PreviousTriggerValue = 0f;
-	const float MaxDistancePerSec = 10f;
+	const float MaxDistancePerSec = 17f;
 
 	// Update is called once per frame
 	void Update ()

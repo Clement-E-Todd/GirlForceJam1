@@ -26,6 +26,15 @@ public class SpawnController : MonoBehaviour {
 	private float currentPerSecondCheck;
 	private DifficultyLevel currentDifficultyLevel;
 
+	public float TotalGameTime
+	{
+		get 
+		{
+			return totalGameTime;
+		}
+
+	}
+
 	public ObstaclePrefab[] GetUpcomingPrefabs()
 	{
 		//we ask the scene for all obstacle prefabs currently in there. However, we only want to return obstacles that haven't passed the player yet!
