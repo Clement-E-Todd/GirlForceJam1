@@ -38,6 +38,8 @@ public class GameOverUI : MonoBehaviour
 		{
 			ski.enabled = false;
 		}
+
+		FindObjectOfType<ScoreScreen>().ToggleScoreScreen(true);
 	}
 
 	void Update () 
@@ -59,7 +61,7 @@ public class GameOverUI : MonoBehaviour
 		}
 	}
 
-	private void Reset()
+	public void Reset()
 	{
 		GameObject[] rocks = GameObject.FindGameObjectsWithTag("Rock");
 		foreach (GameObject rock in rocks)
@@ -69,7 +71,6 @@ public class GameOverUI : MonoBehaviour
 
 		isGameOver = false;
 		Time.timeScale = 1.0f;
-
 
 		FindObjectOfType<PlayerAnimation>().enabled = true;
 		foreach (var ski in FindObjectsOfType<SkiMovement>())
