@@ -32,6 +32,8 @@ public class GameOverUI : MonoBehaviour
 		}
         isGameOver = true;
 		Time.timeScale = 0.0f;
+
+		GetComponent<AudioSource>().Play();
         
         if(playerPoints.GetPoints() > PlayerPrefs.GetInt("High Score"))
             PlayerPrefs.SetInt("High Score", playerPoints.GetPoints());
