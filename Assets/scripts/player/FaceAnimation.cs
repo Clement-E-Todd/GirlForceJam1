@@ -43,8 +43,8 @@ public class FaceAnimation : MonoBehaviour {
 	const float minPauseBeforeMidIntensityVO = 2.0f;
 
 	public AudioClip[] HiIntensityVOs;
-	const float chanceToPlayHiIntensityVO = 0.5f;
-	const float minPauseBeforeHiIntensityVO = 1.0f;
+	const float chanceToPlayHiIntensityVO = 0.25f;
+	const float minPauseBeforeHiIntensityVO = 5.0f;
 
 	public AudioClip[] FlinchVOs;
 	const float chanceToPlayFlinchVO = 1.0f;
