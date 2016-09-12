@@ -3,17 +3,15 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class TitleScreen : MonoBehaviour {
+public class HomeButton : MonoBehaviour {
 
-	public void loadScene()
-    {
-		Time.timeScale = 1f;
-
+	public void LoadTitle()
+	{
 		foreach (Button button in FindObjectsOfType<Button>())
 		{
 			button.gameObject.SetActive(false);
 		}
 
-        SceneManager.LoadScene(1);
-    }
+		SceneManager.LoadScene(0);
+	}
 }

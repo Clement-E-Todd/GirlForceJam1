@@ -11,6 +11,8 @@ public class GameOverUI : MonoBehaviour
 	public Text yourScore;
 	public Text highScore;
 
+	public Tutorial tutorial;
+
 	public bool IsGameOver
 	{
 		get
@@ -33,7 +35,15 @@ public class GameOverUI : MonoBehaviour
         isGameOver = true;
 		Time.timeScale = 0.0f;
 
-		GetComponent<AudioSource>().Play();
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 1)
+		{
+			GetComponent<AudioSource>().Play();
+
+			foreach (SkiMovement ski in FindObjectsOfType<SkiMovement>())
+			{
+				ski.GetComponent<AudioSource>().Pause();
+			}
+		}
         
         if(playerPoints.GetPoints() > PlayerPrefs.GetInt("High Score"))
             PlayerPrefs.SetInt("High Score", playerPoints.GetPoints());
@@ -49,25 +59,7 @@ public class GameOverUI : MonoBehaviour
 		yourScore.text = FindObjectOfType<PointsManager>().GetPoints().ToString();
 		highScore.text = PlayerPrefs.GetInt("High Score").ToString();
 
-	}
-
-	void Update () 
-	{
-		bool isTapping = false;
-
-		foreach (Touch touch in Input.touches)
-		{
-			if (touch.phase == TouchPhase.Began)
-			{
-				isTapping = true;
-				break;
-			}
-		} 
-
-		if ((Input.GetKeyDown(KeyCode.Space) || isTapping) && isGameOver)
-		{
-			Reset();
-		}
+		tutorial.Hide();
 	}
 
 	public void Reset()
@@ -91,6 +83,16 @@ public class GameOverUI : MonoBehaviour
 		{
 			obj.SetActive(false);
 		}
+
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 1)
+		{
+			foreach (SkiMovement ski in FindObjectsOfType<SkiMovement>())
+			{
+				ski.GetComponent<AudioSource>().UnPause();
+			}
+		}
+
+		tutorial.Show();
 
 		FindObjectOfType<SpawnController>().Reset();
 	}

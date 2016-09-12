@@ -170,11 +170,19 @@ public class FaceAnimation : MonoBehaviour {
 			Invoke("StartGrimace", FlinchTime);
 		}
 
-		Ski1.GetComponent<AudioSource>().volume = 0.5f + (ski1TotalSampledDistance / SoundThreshold);
-		Ski1.GetComponent<AudioSource>().pitch = 1f + (ski1TotalSampledDistance / SoundThreshold) * 0.25f;
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 1)
+		{
+			Ski1.GetComponent<AudioSource>().volume = 0.5f + (ski1TotalSampledDistance / SoundThreshold);
+			Ski1.GetComponent<AudioSource>().pitch = 1f + (ski1TotalSampledDistance / SoundThreshold) * 0.25f;
 
-		Ski2.GetComponent<AudioSource>().volume = 0.5f + (ski2TotalSampledDistance / SoundThreshold);
-		Ski2.GetComponent<AudioSource>().pitch = 1f + (ski2TotalSampledDistance / SoundThreshold) * 0.25f;
+			Ski2.GetComponent<AudioSource>().volume = 0.5f + (ski2TotalSampledDistance / SoundThreshold);
+			Ski2.GetComponent<AudioSource>().pitch = 1f + (ski2TotalSampledDistance / SoundThreshold) * 0.25f;
+		}
+		else
+		{
+			Ski1.GetComponent<AudioSource>().volume = 0f;
+			Ski2.GetComponent<AudioSource>().volume = 0f;
+		}
 	}
 
 	void StartGrimace()
@@ -192,7 +200,8 @@ public class FaceAnimation : MonoBehaviour {
 
 	void PlayMedIntensityVO()
 	{
-		if (Time.time < lastVOPlayTime + minPauseBeforeMidIntensityVO ||
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 0 ||
+			Time.time < lastVOPlayTime + minPauseBeforeMidIntensityVO ||
 			Random.value > chanceToPlayMidIntensityVO)
 		{
 			return;
@@ -211,7 +220,8 @@ public class FaceAnimation : MonoBehaviour {
 
 	void PlayHiIntensityVO()
 	{
-		if (Time.time < lastVOPlayTime + minPauseBeforeHiIntensityVO ||
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 0 ||
+			Time.time < lastVOPlayTime + minPauseBeforeHiIntensityVO ||
 			Random.value > chanceToPlayHiIntensityVO)
 		{
 			return;
@@ -230,7 +240,8 @@ public class FaceAnimation : MonoBehaviour {
 
 	void PlayFlinchVO()
 	{
-		if (Time.time < lastVOPlayTime + minPauseBeforeFlinchVO ||
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 0 ||
+			Time.time < lastVOPlayTime + minPauseBeforeFlinchVO ||
 			Random.value > chanceToPlayFlinchVO)
 		{
 			return;
@@ -249,7 +260,8 @@ public class FaceAnimation : MonoBehaviour {
 
 	void PlayGrimaceVO()
 	{
-		if (Time.time < lastVOPlayTime + minPauseBeforeGrimaceVO ||
+		if (PlayerPrefs.GetInt("SfxEnabled", 1) == 0 ||
+			Time.time < lastVOPlayTime + minPauseBeforeGrimaceVO ||
 			Random.value > chanceToPlayGrimaceVO)
 		{
 			return;

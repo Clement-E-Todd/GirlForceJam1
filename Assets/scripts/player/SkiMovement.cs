@@ -21,8 +21,15 @@ public class SkiMovement : MonoBehaviour {
 	float PreviousTriggerValue = 0f;
 	const float MaxDistancePerSec = 17f;
 
-	// Update is called once per frame
-	void Update ()
+	void Start()
+	{
+		if (TriggerName == "Leg 2")
+		{
+			GetComponent<AudioSource>().time = GetComponent<AudioSource>().clip.length / 2;
+		}
+	}
+
+	void Update()
 	{
 		PreviousTriggerValue = CurrentTriggerValue;
 		float TargetTriggerValue = GetTargetTriggerValue();
